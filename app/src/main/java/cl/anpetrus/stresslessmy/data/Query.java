@@ -4,6 +4,7 @@ import java.util.ArrayList;
 import java.util.List;
 
 import cl.anpetrus.stresslessmy.models.Pending;
+import cl.anpetrus.stresslessmy.models.Wine;
 
 /**
  * Created by USUARIO on 11-08-2017.
@@ -58,4 +59,12 @@ public class Query {
         return pendings;
     }
 
+    public List<Wine> wines() {
+        List<Wine> wines = new ArrayList<>();
+        List<Wine> winesList = Wine.listAll(Wine.class);
+        if (winesList != null && winesList.size() > 0) {
+            wines.addAll(winesList);
+        }
+        return wines;
+    }
 }
