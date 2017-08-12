@@ -12,12 +12,12 @@ public class Pending extends SugarRecord {
 
     private String name;
     private String description;
-    private boolean donde;
+    private boolean done;
 
     public Pending(String name, String description, boolean donde) {
         this.name = name;
         this.description = description;
-        this.donde = donde;
+        this.done = donde;
     }
 
     public String getName() {
@@ -36,11 +36,11 @@ public class Pending extends SugarRecord {
         this.description = description;
     }
 
-    public boolean isDonde() {
-        return donde;
+    public boolean isDone() {
+        return done;
     }
 
-    public void setDonde(boolean donde) {
-        this.donde = donde;
+    public void setDone(boolean done) {
+        this.done = done;
     }
 }
