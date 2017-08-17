@@ -1,5 +1,6 @@
 package cl.anpetrus.stresslessmy.adapters;
 
+import android.os.Handler;
 import android.support.v7.widget.RecyclerView;
 import android.view.LayoutInflater;
 import android.view.View;
@@ -10,6 +11,7 @@ import android.widget.TextView;
 
 import java.util.List;
 
+import cl.anpetrus.stresslessmy.PendingClickListener;
 import cl.anpetrus.stresslessmy.R;
 import cl.anpetrus.stresslessmy.data.Query;
 import cl.anpetrus.stresslessmy.models.Pending;
@@ -20,7 +22,13 @@ import cl.anpetrus.stresslessmy.models.Pending;
 
 public class PendingAdapter extends RecyclerView.Adapter<PendingAdapter.ViewHolder> {
 
-    private List<Pending> pendings = new Query().pendings();
+    private List<Pending> pendings = new Query().notDone();
+
+    private PendingClickListener listener;
+
+    public PendingAdapter(PendingClickListener listener) {
+        this.listener = listener;
+    }
 
     @Override
     public ViewHolder onCreateViewHolder(ViewGroup parent, int viewType) {
@@ -29,7 +37,7 @@ public class PendingAdapter extends RecyclerView.Adapter<PendingAdapter.ViewHold
     }
 
     @Override
-    public void onBindViewHolder(ViewHolder holder, int position) {
+    public void onBindViewHolder(final ViewHolder holder, int position) {
         Pending pending = pendings.get(position);
         holder.textView.setText(pending.getName());
         holder.checkBox.setChecked(pending.isDone());
@@ -37,7 +45,19 @@ public class PendingAdapter extends RecyclerView.Adapter<PendingAdapter.ViewHold
         holder.checkBox.setOnCheckedChangeListener(new CompoundButton.OnCheckedChangeListener() {
             @Override
             public void onCheckedChanged(CompoundButton compoundButton, boolean b) {
-
+                if (b) {
+                    new Handler().postDelayed(new Runnable() {
+                        @Override
+                        public void run() {
+                            int position = holder.getAdapterPosition();
+                            Pending auxPending = pendings.get(position);
+                            auxPending.setDone(true);
+                            auxPending.save();
+                            pendings.remove(position);
+                            notifyDataSetChanged();
+                        }
+                    }, 400);
+                }
             }
         });
 
@@ -45,9 +65,16 @@ public class PendingAdapter extends RecyclerView.Adapter<PendingAdapter.ViewHold
             @Override
             public void onClick(View view) {
 
-
+                Pending auxPending = pendings.get(holder.getAdapterPosition());
+                listener.clickedID(auxPending.getId());
             }
         });
+    }
+
+    public void update(Pending pending) {
+        pendings.add(pending);
+        pending.save();
+        notifyDataSetChanged();
     }
 
     @Override

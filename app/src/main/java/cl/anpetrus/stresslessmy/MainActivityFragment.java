@@ -8,14 +8,17 @@ import android.support.v7.widget.RecyclerView;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
+import android.widget.Toast;
 
-import cl.anpetrus.stresslessmy.adapters.WineAdapter;
-import cl.anpetrus.stresslessmy.models.Wine;
+import cl.anpetrus.stresslessmy.adapters.PendingAdapter;
+import cl.anpetrus.stresslessmy.models.Pending;
 
 /**
  * A placeholder fragment containing a simple view.
  */
-public class MainActivityFragment extends Fragment {
+public class MainActivityFragment extends Fragment implements PendingClickListener{
+
+    private PendingAdapter pendingAdapter;
 
     public MainActivityFragment() {
     }
@@ -29,23 +32,22 @@ public class MainActivityFragment extends Fragment {
     @Override
     public void onViewCreated(View view, @Nullable Bundle savedInstanceState) {
         super.onViewCreated(view, savedInstanceState);
-
         RecyclerView recyclerView = view.findViewById(R.id.pendingRv);
         recyclerView.setHasFixedSize(true);
 
         LinearLayoutManager linearLayoutManager = new LinearLayoutManager(getContext());
         recyclerView.setLayoutManager(linearLayoutManager);
 
-       /* Pending pending;
+     /*   Pending pending;
         for (int i = 0; i < 20; i++) {
             pending = new Pending("PName" + i, "desc" + 1, true);
             pending.save();
-        }
+        }*/
 
-        PendingAdapter wineAdapter = new PendingAdapter();
-        recyclerView.setAdapter(wineAdapter);*/
+        pendingAdapter = new PendingAdapter(this);
+        recyclerView.setAdapter(pendingAdapter);
 
-        Wine wine;
+  /*      Wine wine;
         wine = new Wine("Santa Helena" , 8,"Sauvignon");
         wine.save();
         wine = new Wine("Rio Loco" , 0,"Cartoner");
@@ -57,7 +59,16 @@ public class MainActivityFragment extends Fragment {
         wine = new Wine("Korta" , 5,"shiraz");
         wine.save();
 
-        WineAdapter wineAdapter = new WineAdapter();
-        recyclerView.setAdapter(wineAdapter);
+        WineAdapter wineAdapter = new WineAdapter();*/
+        recyclerView.setAdapter(pendingAdapter);
+    }
+
+    public void updateList(Pending pending){
+        pendingAdapter.update(pending);
+    }
+
+    @Override
+    public void clickedID(long id) {
+        Toast.makeText(getContext(), String.valueOf(id), Toast.LENGTH_SHORT).show();
     }
 }
