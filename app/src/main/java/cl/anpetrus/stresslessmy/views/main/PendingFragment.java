@@ -1,5 +1,6 @@
-package cl.anpetrus.stresslessmy;
+package cl.anpetrus.stresslessmy.views.main;
 
+import android.content.Intent;
 import android.os.Bundle;
 import android.support.annotation.Nullable;
 import android.support.v4.app.Fragment;
@@ -8,19 +9,22 @@ import android.support.v7.widget.RecyclerView;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
-import android.widget.Toast;
 
+import cl.anpetrus.stresslessmy.R;
 import cl.anpetrus.stresslessmy.adapters.PendingAdapter;
+import cl.anpetrus.stresslessmy.adapters.PendingClickListener;
 import cl.anpetrus.stresslessmy.models.Pending;
+import cl.anpetrus.stresslessmy.views.details.DetailsActivity;
 
 /**
  * A placeholder fragment containing a simple view.
  */
-public class MainActivityFragment extends Fragment implements PendingClickListener{
+public class PendingFragment extends Fragment implements PendingClickListener {
 
     private PendingAdapter pendingAdapter;
+    public static final String PENDING_ID = "cl.anpetrus.stresslessmy.views.main.KEY.PENDING_ID";
 
-    public MainActivityFragment() {
+    public PendingFragment() {
     }
 
     @Override
@@ -69,6 +73,9 @@ public class MainActivityFragment extends Fragment implements PendingClickListen
 
     @Override
     public void clickedID(long id) {
-        Toast.makeText(getContext(), String.valueOf(id), Toast.LENGTH_SHORT).show();
+        Intent intent = new Intent(getContext(), DetailsActivity.class);
+        intent.putExtra(PENDING_ID,id);
+        startActivity(intent);
+        //Toast.makeText(getContext(), String.valueOf(id), Toast.LENGTH_SHORT).show();
     }
 }

@@ -1,4 +1,4 @@
-package cl.anpetrus.stresslessmy;
+package cl.anpetrus.stresslessmy.adapters;
 
 /**
  * Created by USUARIO on 17-08-2017.

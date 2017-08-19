@@ -3,13 +3,13 @@
     package="cl.anpetrus.stresslessmy">
 
     <application
+        android:name="com.orm.SugarApp"
         android:allowBackup="true"
         android:icon="@mipmap/ic_launcher"
         android:label="@string/app_name"
         android:roundIcon="@mipmap/ic_launcher_round"
         android:supportsRtl="true"
-        android:theme="@style/AppTheme"
-        android:name="com.orm.SugarApp">
+        android:theme="@style/AppTheme">
         <meta-data
             android:name="DATABASE"
             android:value="stresslessmy.db" />
@@ -24,7 +24,7 @@
             android:value="cl.anpetrus.stresslessmy.models" />
 
         <activity
-            android:name=".MainActivity"
+            android:name=".views.main.MainActivity"
             android:label="@string/app_name"
             android:theme="@style/AppTheme.NoActionBar">
             <intent-filter>
@@ -33,6 +33,7 @@
                 <category android:name="android.intent.category.LAUNCHER" />
             </intent-filter>
         </activity>
+        <activity android:name=".views.details.DetailsActivity"></activity>
     </application>
 
 </manifest>

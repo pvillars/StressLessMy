@@ -1,4 +1,4 @@
-package cl.anpetrus.stresslessmy;
+package cl.anpetrus.stresslessmy.views.main;
 
 import android.app.Dialog;
 import android.os.Bundle;
@@ -11,12 +11,13 @@ import android.view.WindowManager;
 import android.widget.EditText;
 import android.widget.ImageButton;
 
+import cl.anpetrus.stresslessmy.R;
 import cl.anpetrus.stresslessmy.models.Pending;
 
 public class MainActivity extends AppCompatActivity {
 
 
-    private MainActivityFragment mainActivityFragment;
+    private PendingFragment mainActivityFragment;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -25,7 +26,7 @@ public class MainActivity extends AppCompatActivity {
         Toolbar toolbar = (Toolbar) findViewById(R.id.toolbar);
         setSupportActionBar(toolbar);
 
-        mainActivityFragment = (MainActivityFragment) getSupportFragmentManager().findFragmentById(R.id.fragment);
+        mainActivityFragment = (PendingFragment) getSupportFragmentManager().findFragmentById(R.id.fragment);
 
         FloatingActionButton fab = (FloatingActionButton) findViewById(R.id.fab);
         fab.setOnClickListener(new View.OnClickListener() {
@@ -47,7 +48,6 @@ public class MainActivity extends AppCompatActivity {
                         if (name.length() > 0) {
                             Pending pending = new Pending();
                             pending.setName(name);
-                            pending.setDescription("Description " + name);
                             pending.setDone(false);
                             mainActivityFragment.updateList(pending);
                         }

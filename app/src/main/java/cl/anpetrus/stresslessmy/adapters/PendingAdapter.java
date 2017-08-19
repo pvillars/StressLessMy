@@ -11,7 +11,6 @@ import android.widget.TextView;
 
 import java.util.List;
 
-import cl.anpetrus.stresslessmy.PendingClickListener;
 import cl.anpetrus.stresslessmy.R;
 import cl.anpetrus.stresslessmy.data.Query;
 import cl.anpetrus.stresslessmy.models.Pending;
